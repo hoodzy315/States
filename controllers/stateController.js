@@ -137,7 +137,7 @@ const updateFact = async (req,res) => {
     if (!req?.body?.funfact) {
         return res.status(400).json({ 'message': 'State fun fact value required' });
     }
-    if(!Array.isArray(req.body.funfact)){
+    if(Array.isArray(req.body.funfact)){
         return res.status(400).json({"message": 'State fun fact value required'});
     }
 
@@ -150,7 +150,7 @@ const updateFact = async (req,res) => {
             const state = data.states.find(state => state.code === req.params.state.toUpperCase());
             return res.status(404).json({"message":`No Fun Fact found at that index for ${state.state}`});
         }
-        hasFacts.funfacts[i] = req.body.funfact[0];
+        hasFacts.funfacts[i] = req.body.funfact;
         hasFacts.save();
         res.json(hasFacts);
     }
@@ -175,7 +175,7 @@ const deleteFact = async (req,res) => {
             const state = data.states.find(state => state.code === req.params.state.toUpperCase());
             return res.status(404).json({"message":`No Fun Fact found at that index for ${state.state}`});
         }
-        testArray = hasFacts.funfacts.filter(function (element, index) {
+        const testArray = hasFacts.funfacts.filter(function (element, index) {
             return index != i;
         });
         hasFacts.funfacts = testArray;
