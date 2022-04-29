@@ -48,7 +48,7 @@ const getAllStates = async (req, res) => {
         }
     }
     
-    res.json(full);
+    res.send(full);
 }
 
 const getState = async (req, res) => {
