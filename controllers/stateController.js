@@ -13,7 +13,7 @@ const getAllStates = async (req, res) => {
             const element = contig[i];
             const funfact = await States.findOne({stateCode: element.code}).lean();
             if(funfact){
-                const merged = {...element, "funfacts": `${funfact.funfacts}`};
+                const merged = {...element, "funfacts": [funfact.funfacts]};
                 full.push(merged);
             }
             else {
@@ -27,7 +27,7 @@ const getAllStates = async (req, res) => {
             const element = nocontig[i];
             const funfact = await States.findOne({stateCode: element.code}).lean();
             if(funfact){
-                const merged = {...element, "funfacts": `${funfact.funfacts}`};
+                const merged = {...element, "funfacts": [funfact.funfacts]};
                 full.push(merged);
             }
             else {
@@ -40,7 +40,7 @@ const getAllStates = async (req, res) => {
             const element = data.states[i];
             const funfact = await States.findOne({stateCode: element.code}).lean();
             if(funfact){
-                const merged = {...element, "funfacts": `${funfact.funfacts}`};
+                const merged = {...element, "funfacts": [funfact.funfacts]};
                 full.push(merged);
             }
             else {
