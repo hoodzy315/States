@@ -41,7 +41,6 @@ const getAllStates = async (req, res) => {
             const funfact = await States.findOne({stateCode: element.code}).lean();
             if(funfact){
                 const merged = {...element, "funfacts": funfact.funfacts};
-                console.log(typeof merged.funfacts);
                 full.push(merged);
             }
             else {
