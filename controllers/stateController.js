@@ -156,7 +156,7 @@ const updateFact = async (req,res) => {
     }
     else {
         const state = data.states.find(state => state.code === req.params.state.toUpperCase());
-        res.json({"message":`No Fun Facts found for ${state.state}`});
+        res.status(404).json({"message":`No Fun Facts found for ${state.state}`});
     }
 
 }
@@ -173,7 +173,7 @@ const deleteFact = async (req,res) => {
         factCheck = hasFacts.funfacts[i];
         if(!factCheck) {
             const state = data.states.find(state => state.code === req.params.state.toUpperCase());
-            return res.json({"message":`No Fun Fact found at that index for ${state.state}`});
+            return res.status(404).json({"message":`No Fun Fact found at that index for ${state.state}`});
         }
         testArray = hasFacts.funfacts.filter(function (element, index) {
             return index != i;
@@ -184,7 +184,7 @@ const deleteFact = async (req,res) => {
     }
     else {
         const state = data.states.find(state => state.code === req.params.state.toUpperCase());
-        res.json({"message":`No Fun Facts found for ${state.state}`});
+        res.status(404).json({"message":`No Fun Facts found for ${state.state}`});
     }
 
 }
