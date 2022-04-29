@@ -135,7 +135,7 @@ const updateFact = async (req,res) => {
         return res.status(400).json({ 'message': "State fun fact index value required" });
     }
     if (!req?.body?.funfacts) {
-        return res.status(400).json({ 'message': 'Fun fact required' });
+        return res.status(400).json({ 'message': 'State fun fact value required' });
     }
     if(!Array.isArray(req.body.funfacts)){
         return res.status(400).json({"message": "State fun facts value must be an array"});
@@ -170,6 +170,11 @@ const deleteFact = async (req,res) => {
 
     if(hasFacts){
         const i = req.body.index - 1;
+        factCheck = hasFacts.funfacts[i];
+        if(!factCheck) {
+            const state = data.states.find(state => state.code === req.params.state.toUpperCase());
+            return res.json({"message":`No Fun Fact found at that index for ${state.state}`});
+        }
         testArray = hasFacts.funfacts.filter(function (element, index) {
             return index != i;
         });
