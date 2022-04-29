@@ -2,6 +2,7 @@ const data = {
     states: require('../model/States.json'),
     setStates: function (data) { this.states = data }
 }
+const { json } = require('express/lib/response');
 const States = require('../model/States');
 
 const getAllStates = async (req, res) => {
@@ -12,7 +13,7 @@ const getAllStates = async (req, res) => {
             const element = contig[i];
             const funfact = await States.findOne({stateCode: element.code}).lean();
             if(funfact){
-                const merged = {...element, funfacts: funfact.funfacts};
+                const merged = {...element, "funfacts": funfact.funfacts};
                 full.push(merged);
             }
             else {
@@ -47,8 +48,7 @@ const getAllStates = async (req, res) => {
             }
         }
     }
-    
-    res.send(JSON.stringify(full));
+    res.json(full);
 }
 
 const getState = async (req, res) => {
@@ -135,7 +135,7 @@ const updateFact = async (req,res) => {
         return res.status(400).json({ 'message': "State fun fact index value required" });
     }
     if (!req?.body?.funfact) {
-        return res.status(400).json({ 'message': 'State fun fact value required' });
+        return res.status(400).json({ 'message': 'State fun facts value required' });
     }
     if(!Array.isArray(req.body.funfact)){
         return res.status(400).json({"message": "State fun facts value must be an array"});
