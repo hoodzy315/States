@@ -101,18 +101,18 @@ const getAdmis = async (req, res) => {
 }
 
 const addFunFact = async (req, res) => {
-    if (!req?.body?.funfact) {
+    if (!req?.body?.funfacts) {
         return res.status(400).json({ 'message': 'Fun fact required' });
     }
 
-    if(!Array.isArray(req.body.funfact)){
+    if(!Array.isArray(req.body.funfacts)){
         return res.status(400).json({"message": "State fun facts value must be an array"});
     }
 
     const hasFacts = await States.findOne({ stateCode : req.params.state.toUpperCase()}).exec();
 
     if(hasFacts){
-        req.body.funfact.forEach(fact => hasFacts.funfacts.push(fact));
+        req.body.funfacts.forEach(fact => hasFacts.funfacts.push(fact));
         hasFacts.save();
         res.json(hasFacts);
     }
@@ -120,7 +120,7 @@ const addFunFact = async (req, res) => {
         try {
             const result = await States.create({
                 stateCode: req.params.state.toUpperCase(),
-                funfacts: req.body.funfact
+                funfacts: req.body.funfacts
             });
     
             res.status(201).json(result);
