@@ -145,7 +145,7 @@ const updateFact = async (req,res) => {
 
     if(hasFacts){
         const i = req.body.index - 1;
-        factCheck = hasFacts.funfacts[i];
+        const factCheck = hasFacts.funfacts[i];
         if(!factCheck) {
             const state = data.states.find(state => state.code === req.params.state.toUpperCase());
             return res.status(404).json({"message":`No Fun Fact found at that index for ${state.state}`});
@@ -170,7 +170,7 @@ const deleteFact = async (req,res) => {
 
     if(hasFacts){
         const i = req.body.index - 1;
-        factCheck = hasFacts.funfacts[i];
+        const factCheck = hasFacts.funfacts[i];
         if(!factCheck) {
             const state = data.states.find(state => state.code === req.params.state.toUpperCase());
             return res.status(404).json({"message":`No Fun Fact found at that index for ${state.state}`});
