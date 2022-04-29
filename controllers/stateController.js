@@ -103,7 +103,7 @@ const getAdmis = async (req, res) => {
 
 const addFunFact = async (req, res) => {
     if (!req?.body?.funfacts) {
-        return res.status(400).json({ 'message': "State fun fact value required" });
+        return res.status(400).json({ 'message': "State fun facts value required" });
     }
 
     if(!Array.isArray(req.body.funfacts)){
@@ -139,7 +139,7 @@ const updateFact = async (req,res) => {
         return res.status(400).json({ 'message': 'State fun facts value required' });
     }
     if(!Array.isArray(req.body.funfact)){
-        return res.status(400).json({"message": "State fun facts value must be an array"});
+        return res.status(400).json({"message": 'State fun fact value required'});
     }
 
     const hasFacts = await States.findOne({ stateCode : req.params.state.toUpperCase()}).exec();
@@ -149,7 +149,7 @@ const updateFact = async (req,res) => {
         factCheck = hasFacts.funfacts[i];
         if(!factCheck) {
             const state = data.states.find(state => state.code === req.params.state.toUpperCase());
-            return res.json({"message":`No Fun Fact found at that index for ${state.state}`});
+            return res.status(404).json({"message":`No Fun Fact found at that index for ${state.state}`});
         }
         hasFacts.funfacts[i] = req.body.funfact[0];
         hasFacts.save();
